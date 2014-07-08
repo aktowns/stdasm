@@ -10,16 +10,7 @@ extern _exit
 extern _puts
 extern _getuid
 
-_main:
-	;stackalloc 'A', rax
-	;call _putc
-	;stackdealloc
-
-	;call _newline
-
-	;push 12
-	;push msg
-	;call _puts
+_showuid:
 	mov rax, msg
 	mov rdi, 4
 	call _puts
@@ -30,6 +21,11 @@ _main:
 	add rdi, 48
 	stackalloc rdi, rax
 	call _putc
+
+	ret
+
+_main:
+	call _showuid
 
 	mov rax, 0
 	call _exit
