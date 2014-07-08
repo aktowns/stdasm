@@ -1,25 +1,37 @@
 %include "lib/system.asm"
 
 section .data
-msg: db "Hello World", 10
+msg: db "UID:", 10
 
 section .text
 global _main
 extern _putc
 extern _exit
 extern _puts
-extern _newline
+extern _getuid
 
 _main:
-	push 'A'
-	call _putc
-	call _newline
+	;stackalloc 'A', rax
+	;call _putc
+	;stackdealloc
+
+	;call _newline
 
 	;push 12
 	;push msg
 	;call _puts
+	mov rax, msg
+	mov rdi, 4
+	call _puts
 
-	push 0
+	call _getuid
+	; atoi
+	mov rdi, rax
+	add rdi, 48
+	stackalloc rdi, rax
+	call _putc
+
+	mov rax, 0
 	call _exit
 
 	leave

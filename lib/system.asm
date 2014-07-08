@@ -50,6 +50,9 @@
   push %1
   mov %2, rsp
 %endmacro
+%macro stackdealloc 0
+  pop rax
+%endmacro
 
 %macro do_syscall 4
   mov rax, %1
@@ -57,4 +60,16 @@
   mov rsi, %3
   mov rdx, %4
   syscall
+%endmacro
+
+%macro qcall 1+
+  mov rax, %2
+  mov rdi, %3
+  mov rsi, %4
+  mov rdx, %5
+  call %1
+%endmacro
+
+%macro get 2
+  mov %1, [rsp + %2]
 %endmacro
